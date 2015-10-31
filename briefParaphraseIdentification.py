@@ -81,15 +81,15 @@ def loadClusterClass(classfile_in, WordToIddic,IdToWordsdic):
     
 def ParaphsIdentify(file_in, domain_class_dic, domain_WE_dic, ALPHA, THETA, file_out):
     fr = codecs.open(file_in, encoding = 'utf8')    
-    fw = codecs.open(file_out+'_cut'+str(ALPHA)+'_'+str(THETA), 'w', encoding = 'utf8')
+    fw = codecs.open(file_out+'_cut1_'+str(ALPHA)+'_'+str(THETA), 'w', encoding = 'utf8')
     fw.write("##################################################################################" +'\n')
     fw.write('ALPHA= ' + str(ALPHA) + '  THETA ' + str(THETA) + '\n')
     print file_in, 'ALPHA= ' + str(ALPHA) + '  THETA ' + str(THETA)
     review_list = [ line.strip().split('\t') for line in fr ]
     scale = len(review_list)
     i = -1
-    while(i < len(review_list)):
-        i += 1
+    while(i < len(review_list) - 1 ):    
+        i += 1        
         if len(review_list[i]) < 4  or review_list[i][3] == "NULL":
             continue
         for j in range(i+1, len(review_list)):
@@ -164,9 +164,8 @@ def ParaphsIdentify(file_in, domain_class_dic, domain_WE_dic, ALPHA, THETA, file
                 del review_list[j]
                 break
             ###raw_input
-        #print i/float(scale)
+        ###print i/float(scale)
         sys.stdout.write(str(i/float(scale)) + '\r')
-                
     fr.close()
     fw.close()
     
@@ -199,9 +198,9 @@ if __name__ == '__main__':
     car_bug_file_out = 'bug/car_bug.txt'
     
     
-    for alpha in range(5,6):
+    for alpha in range(4,7):
         alpha *= 0.1
-        for theta in range(4,5):
+        for theta in range(3,5):
             theta *= 0.1
             ParaphsIdentify(car_corpus_file_in, car_wordToid_dic, car_we_dic, alpha, theta, car_paraphrase_file_out)
             ParaphsIdentify(phone_corpus_file_in, phone_wordToid_dic, phone_we_dic, alpha, theta, phone_paraphrase_file_out)
