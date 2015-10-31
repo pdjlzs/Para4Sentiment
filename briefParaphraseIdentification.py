@@ -87,8 +87,9 @@ def ParaphsIdentify(file_in, domain_class_dic, domain_WE_dic, ALPHA, THETA, file
     print file_in, 'ALPHA= ' + str(ALPHA) + '  THETA ' + str(THETA)
     review_list = [ line.strip().split('\t') for line in fr ]
     scale = len(review_list)
-    for i in range(0, len(review_list)):
-        paraphrase_num = 0
+    i = -1
+    while(i < len(review_list)):
+        i += 1
         if len(review_list[i]) < 4  or review_list[i][3] == "NULL":
             continue
         for j in range(i+1, len(review_list)):
@@ -160,9 +161,8 @@ def ParaphsIdentify(file_in, domain_class_dic, domain_WE_dic, ALPHA, THETA, file
                 out_paraphrase = str(1) + '\t' + review_i[0] + '\t' + review_j[0] + '\n' + review_i[2] + '\n' + 'attr: '+ attr_review_i + '\n' + review_j[2] + '\n' + 'attr: ' +attr_review_j +'\n'
                 fw.write(out_paraphrase)
                 #fw.write('attr_sim: '+corfre_attr_pair + '\n')  
-                paraphrase_num += 1
-                if paraphrase_num == 6:
-                    break
+                del review_list[j]
+                break
             ###raw_input
         #print i/float(scale)
         sys.stdout.write(str(i/float(scale)) + '\r')
@@ -201,8 +201,8 @@ if __name__ == '__main__':
     
     for alpha in range(5,6):
         alpha *= 0.1
-        for theta in range(40,52,5):
-            theta *= 0.01
+        for theta in range(4,5):
+            theta *= 0.1
             ParaphsIdentify(car_corpus_file_in, car_wordToid_dic, car_we_dic, alpha, theta, car_paraphrase_file_out)
             ParaphsIdentify(phone_corpus_file_in, phone_wordToid_dic, phone_we_dic, alpha, theta, phone_paraphrase_file_out)
     
