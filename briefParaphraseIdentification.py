@@ -99,7 +99,7 @@ def ParaphsIdentify(file_in, domain_class_dic, domain_WE_dic, ALPHA, THETA, file
                 continue
             if len(review_j) < 4 or review_j[3] == "NULL":               
                 continue
-            if abs(len(review_i) - len(review_j)) > 3:
+            if len(review_i) != len(review_j):
                 continue
             
             corefrence_attr_num = 0
