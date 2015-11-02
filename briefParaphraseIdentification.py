@@ -165,7 +165,7 @@ def ParaphsIdentify(file_in, domain_class_dic, domain_WE_dic, ALPHA, THETA, file
                 break
             ###raw_input
         ###print i/float(scale)
-        sys.stdout.write(str(i/float(scale)) + '\r')
+        sys.stdout.write(str(i/float(scale)) + '%'+ '\r')
     fr.close()
     fw.close()
     
@@ -198,10 +198,10 @@ if __name__ == '__main__':
     car_bug_file_out = 'bug/car_bug.txt'
     
     
-    for alpha in range(4,7):
-        alpha *= 0.1
-        for theta in range(3,5):
-            theta *= 0.1
+    for alpha in range(10,40,5):
+        alpha *= 0.01
+        for theta in range(10,30,5):
+            theta *= 0.01
             ParaphsIdentify(car_corpus_file_in, car_wordToid_dic, car_we_dic, alpha, theta, car_paraphrase_file_out)
             ParaphsIdentify(phone_corpus_file_in, phone_wordToid_dic, phone_we_dic, alpha, theta, phone_paraphrase_file_out)
     
